@@ -22,14 +22,5 @@ public class PizzaTestSuite {
         assertEquals(1, howManyIngredients);
     }
 
-    @Test
-    void testPizzaNdew() {
-    //Given
-    Pizza pizza = new Pizza("D", "S", Arrays.asList("Ss", "ddd"));
-        System.out.println(pizza);
-    //When
-    int howManyIngredients = pizza.getIngredients().size();
-    //Then
-    assertEquals(2, howManyIngredients);
-    }
+
 }

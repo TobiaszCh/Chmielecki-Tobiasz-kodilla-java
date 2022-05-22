@@ -7,12 +7,12 @@ import java.util.List;
 public final class Pizza {
     private final String bottom;
     private final String sauce;
-    private List<String> ingredients = new ArrayList<>();
+    private final List<String> ingredients;
 
     public static class PizzaBuilder {
         private String bottom;
         private String sauce;
-        private List<String> ingredients = new ArrayList<>();
+        private final List<String> ingredients = new ArrayList<>();
 
         public PizzaBuilder bottom(String bottom) {
             this.bottom = bottom;
