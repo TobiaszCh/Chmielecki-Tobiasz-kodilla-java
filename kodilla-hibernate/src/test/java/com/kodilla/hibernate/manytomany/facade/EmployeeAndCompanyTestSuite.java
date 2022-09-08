@@ -1,26 +1,25 @@
-package com.kodilla.hibernate.manytomany.dao;
+package com.kodilla.hibernate.manytomany.facade;
 
 import com.kodilla.hibernate.manytomany.Company;
 import com.kodilla.hibernate.manytomany.Employee;
+import com.kodilla.hibernate.manytomany.dao.CompanyDao;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
 
 @SpringBootTest
-public class CompanyDaoTestSuite {
+public class EmployeeAndCompanyTestSuite {
 
     @Autowired
-    CompanyDao companyDao;
+    private CompanyDao companyDao;
 
     @Autowired
-    EmployeeDao employeeDao;
+    private EmployeeAndCompanyFacade employeeAndCompanyFacade;
 
     @Test
-    public void testSaveManyToMany() {
+    public void fetchEmployeesAdnCompaniesMethods() {
         //Given
         Employee johnSmith = new Employee("John", "Smith");
         Employee stephanieClarckson = new Employee("Stephanie", "Clarckson");
@@ -50,27 +49,19 @@ public class CompanyDaoTestSuite {
         companyDao.save(greyMatter);
         int greyMatterId = greyMatter.getId();
 
-        List<Employee> result1 = employeeDao.retrieveEmployeeWithLastname("Clarckson");
-        List<Company> result2 = companyDao.retrieveCompanyWithName3Letters("Gre");
+        List<Employee> employees = employeeAndCompanyFacade.fetchEmployees("Cl");
+        List<Company> companies = employeeAndCompanyFacade.fetchCompanies("Gr");
 
-
-
-        //Then
-        assertNotEquals(0, softwareMachineId);
-        assertNotEquals(0, dataMaestersId);
-        assertNotEquals(0, greyMatterId);
-        assertEquals(1, result1.size());
-        assertEquals(1, result2.size());
+        Assertions.assertEquals(1, employees.size());
+        Assertions.assertEquals(1, companies.size());
 
         //CleanUp
         try {
             companyDao.deleteById(softwareMachineId);
             companyDao.deleteById(dataMaestersId);
             companyDao.deleteById(greyMatterId);
+        } catch (Exception e) {
+            //do nothing
         }
-        catch (Exception e) {
-        }
-
-
     }
 }

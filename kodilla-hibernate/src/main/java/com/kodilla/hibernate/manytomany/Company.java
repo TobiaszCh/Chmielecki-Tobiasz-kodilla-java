@@ -7,11 +7,18 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@NamedNativeQuery(
-        name = "Company.retrieveCompanyWithName3Letters",
-        query = "SELECT * FROM COMPANIES WHERE SUBSTRING(COMPANY_NAME, 1, 3) = :NAME ",
-        resultClass = Company.class
-)
+@NamedQueries({
+        @NamedQuery(
+                name = "Company.retrieveCompanyWithName3Letters",
+                query = "FROM Company WHERE substring(name,1, 3) = :NAME"
+        ),
+
+        @NamedQuery(
+                name = "Company.retrieveCompaniesByAnyFragmentOfTheName",
+                query = "FROM Company WHERE name LIKE concat('%',:ARG, '%')"
+
+        )
+})
 
 @Entity
 @Table(name = "COMPANIES")
