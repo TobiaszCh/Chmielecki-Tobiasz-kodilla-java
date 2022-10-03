@@ -3,6 +3,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -16,7 +17,7 @@ public class Watcher {
 
     @Before("execution(* com.kodilla.patterns2.aop.calculator.Calculator.factorial(..))" +
             "&& args(theNumber) && target(object)")
-    public void logEvent(BigDecimal theNumber, Object object) {
+    public void logEvent(BigDecimal theNumber, @NotNull Object object) {
         LOGGER.info("Class: " + object.getClass().getName() + ", Args: " + theNumber);
     }
 
